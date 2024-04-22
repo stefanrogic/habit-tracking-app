@@ -82,7 +82,10 @@ function App() {
         <div className="flex flex-row justify-between">
           <h1 className="text-3xl font-bold">Habit Tracker</h1>
           <div className="flex flex-row gap-2">
-            <button className="px-3 py-1 bg-gray-500 font-bold" onClick={() => setHabits([...habits, { type: "count-days", name: "Alcohol Free", start: new Date() }])}>
+            <button
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              onClick={() => setHabits([...habits, { type: "count-days", name: "Alcohol Free", start: new Date() }])}
+            >
               ADD
             </button>
           </div>
@@ -91,35 +94,51 @@ function App() {
         <div className="flex flex-col gap-2">
           {habits.length === 0 && <p>List is empty</p>}
 
-          {habits.map((h: Habits, i: number) => {
-            if (h.type === "count-days" || h.type === "count-hours") {
-              return (
-                <div className={`flex flex-row justify-between items-center p-5  bg-slate-800`} key={i}>
-                  <div className="flex flex-row items-center gap-5">
-                    <p className={`text-xl font-bold`}>{h.name}</p>
-                    <span>{renderProgress(h.type, h.start)}</span>
-                  </div>
-                  <div className="flex flex-row items-center gap-5">
-                    <button className="px-3 py-1 bg-gray-500 font-bold">REMOVE</button>
-                  </div>
-                </div>
-              );
-            }
+          <div className="grid grid-cols-3 grid-flow-row gap-7">
+            {habits.map((h: Habits, i: number) => {
+              if (h.type === "count-days" || h.type === "count-hours") {
+                return (
+                  <div key={i} className="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <div className="flex justify-center items-center h-[200px] p-10 bg-white relative">
+                      <div className="opacity-0 hover:opacity-100 flex justify-center items-center h-[200px] w-full bg-black bg-opacity-70 top-0 absolute z-50 cursor-pointer">
+                        <p className="text-3xl">RESET</p>
+                      </div>
+                      <span className="text-black text-center">{renderProgress(h.type, h.start)}</span>
+                    </div>
 
-            if (h.type === "count-times") {
-              return (
-                <div className={`flex flex-row justify-between items-center p-5  bg-slate-800`} key={i}>
-                  <div className="flex flex-row items-center gap-5">
-                    <p className={`text-xl font-bold`}>{h.name}</p>
-                    <span>{renderProgress(h.type, undefined, h.count)}</span>
+                    <div className="flex flex-col items-center gap-10 p-5">
+                      <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{h.name}</h5>
+
+                      <button className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                        REMOVE
+                      </button>
+                    </div>
                   </div>
-                  <div className="flex flex-row items-center gap-5">
-                    <button className="px-3 py-1 bg-gray-500 font-bold">REMOVE</button>
+                );
+              }
+
+              if (h.type === "count-times") {
+                return (
+                  <div key={i} className="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <div className="flex justify-center items-center h-[200px] bg-white relative">
+                      <div className="opacity-0 hover:opacity-100 flex justify-center items-center h-[200px] w-full bg-black bg-opacity-70 top-0 absolute z-50 cursor-pointer">
+                        <p className="text-3xl">RESET</p>
+                      </div>
+                      <span className="text-black text-center">{renderProgress(h.type, undefined, h.count)}</span>
+                    </div>
+
+                    <div className="flex flex-col items-center gap-10 p-5">
+                      <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{h.name}</h5>
+
+                      <button className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                        REMOVE
+                      </button>
+                    </div>
                   </div>
-                </div>
-              );
-            }
-          })}
+                );
+              }
+            })}
+          </div>
         </div>
       </div>
 
@@ -147,15 +166,17 @@ function App() {
         <div className="flex flex-col gap-2">
           {todo.length === 0 && <p>List is empty</p>}
           {todo.map((t, i: number) => (
-            <div className={`flex flex-row justify-between items-center p-5  ${t?.done ? "bg-slate-600" : "bg-slate-800"}`} key={i}>
-              <p className={`text-xl font-bold ${t?.done && "line-through"}`}>{t.text}</p>
+            <div className={`flex flex-row justify-between items-center px-5 h-20  ${t?.done ? "bg-slate-600" : "bg-slate-800"}`} key={i}>
+              <div className="w-full h-full flex items-center cursor-pointer" onClick={() => handleMarkTodo(i)}>
+                <p className={`text-xl font-bold ${t?.done && "line-through"}`}>{t.text}</p>
+              </div>
               <div className="flex flex-row items-center gap-5">
                 <button className="px-3 py-1 bg-gray-500 font-bold" onClick={() => handleRemoveTodo(i)}>
                   REMOVE
                 </button>
-                <button className="px-3 py-1 bg-gray-500 font-bold" onClick={() => handleMarkTodo(i)}>
+                {/* <button className="px-3 py-1 bg-gray-500 font-bold" onClick={() => handleMarkTodo(i)}>
                   {t?.done ? "MARK AS UNDONE" : "MARK AS DONE"}
-                </button>
+                </button> */}
               </div>
             </div>
           ))}
