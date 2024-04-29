@@ -1,10 +1,23 @@
 import { useState } from "react";
 
-type Props = {
-  select: boolean;
+type Habits = {
+  id: number;
+  type: string;
+  name: string;
+  start?: Date;
+  count?: number[];
+  goal: number;
+  progress: number;
 };
 
-const WaterIndicator = ({ select }: Props) => {
+type Props = {
+  select: boolean;
+  habit: Habits;
+  habits: Habits[];
+  setHabits: React.Dispatch<React.SetStateAction<Habits>>;
+};
+
+const WaterIndicator = ({ select, habit, habits, setHabits }: Props) => {
   const [fill, setFill] = useState<boolean>(select ? true : false);
 
   return (
@@ -13,6 +26,26 @@ const WaterIndicator = ({ select }: Props) => {
       style={{ backgroundColor: fill ? "#fff" : "transparent" }}
       onClick={() => {
         setFill(!fill);
+
+        if (!fill) {
+          const newState = habits.map((h) => {
+            if (h.id === habit.id) {
+              h.id === habit.id && console.log(h.progress + 1);
+              return { ...h, progress: h.progress + 1 };
+            }
+          });
+
+          setHabits(newState);
+        } else {
+          const newState = habits.map((h) => {
+            if (h.id === habit.id) {
+              h.id === habit.id && console.log(h.progress - 1);
+              return { ...h, progress: h.progress - 1 };
+            }
+          });
+
+          setHabits(newState);
+        }
       }}
     ></div>
   );

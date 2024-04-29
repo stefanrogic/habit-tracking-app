@@ -3,6 +3,7 @@ import WaterIntakeCard from "../homeCards/habitCards/WaterIntakeCard";
 import { useState } from "react";
 
 type Habits = {
+  id: number;
   type: string;
   name: string;
   start?: Date;
@@ -16,10 +17,10 @@ type Props = {
 };
 
 const HabitsShort = ({ getUrl }: Props) => {
-  const [habits] = useState<Habits[]>([
-    { type: "water-intake", name: "Water Intake", start: new Date("17-Apr-24"), goal: 10, progress: 3 },
-    { type: "water-intake", name: "Water Intake", start: new Date("17-Apr-24"), goal: 12, progress: 5 },
-    { type: "water-intake", name: "Water Intake", start: new Date("17-Apr-24"), goal: 9, progress: 7 },
+  const [habits, setHabits] = useState<Habits[]>([
+    { id: 0, type: "water-intake", name: "Water Intake", start: new Date("17-Apr-24"), goal: 10, progress: 3 },
+    { id: 1, type: "water-intake", name: "Water Intake", start: new Date("17-Apr-24"), goal: 12, progress: 5 },
+    { id: 2, type: "water-intake", name: "Water Intake", start: new Date("17-Apr-24"), goal: 9, progress: 7 },
   ]);
 
   return (
@@ -33,7 +34,7 @@ const HabitsShort = ({ getUrl }: Props) => {
 
         <div className="grid grid-cols-3 grid-flow-row gap-5">
           {habits.map((habit, i) => (
-            <WaterIntakeCard key={i} goal={habit.goal} progress={habit.progress} />
+            <WaterIntakeCard key={i} habit={habit} habits={habits} setHabits={setHabits} />
           ))}
         </div>
       </div>
