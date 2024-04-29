@@ -47,14 +47,7 @@ const HabitTracker = ({ getUrl }: Props) => {
       <div className="flex flex-row justify-between">
         <h1 className="text-3xl font-bold">Habit Tracker</h1>
         <div className="flex flex-row gap-2">
-          {/* <button
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-5 py-3 h-full dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-            onClick={() => setHabits([...habits, { type: "count-days", name: "Alcohol Free", start: new Date() }])}
-          >
-            NEW HABIT
-          </button> */}
-
-          <NewHabitModal habits={habits} setHabits={setHabits} />
+          <NewHabitModal habits={habits} setHabits={setHabits} getUrl={getUrl} />
         </div>
       </div>
 

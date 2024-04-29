@@ -10,20 +10,26 @@ type Habits = {
 type Props = {
   habits: Habits[];
   setHabits: React.Dispatch<React.SetStateAction<Habits[]>>;
+  getUrl: (value: string) => string;
 };
 
-const NewHabitModal = ({ habits, setHabits }: Props) => {
+const NewHabitModal = ({ habits, setHabits, getUrl }: Props) => {
   const [modalToggle, setModalToggle] = useState<boolean>(false);
-  const [newHabit, setNewHabit] = useState<Habits | undefined>();
+  // const [newHabit, setNewHabit] = useState<Habits | undefined>();
 
   return (
     <>
-      <button className="text-white hover:bg-blue-800 font-medium text-sm px-5 py-3 h-full bg-blue-600" type="button" onClick={() => setModalToggle(!modalToggle)}>
-        New Habit
+      <button className="flex items-center gap-1 text-white hover:bg-blue-800 font-medium text-sm ps-5 pe-6 py-3 h-full bg-blue-600" type="button" onClick={() => setModalToggle(!modalToggle)}>
+        <img className="h-5 w-5" src={getUrl("icons/plus.svg")} alt="add-icon" /> New Habit
       </button>
 
       {modalToggle && (
-        <div aria-hidden="true" className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-start w-full h-full  bg-slate-900 bg-opacity-50">
+        <div
+          id="modal-bg"
+          aria-hidden="true"
+          className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-start w-full h-full  bg-slate-900 bg-opacity-50"
+          onClick={(e) => (e.target as HTMLDivElement).id === "modal-bg" && setModalToggle(false)}
+        >
           <div className="mt-10 w-full max-w-2xl max-h-full border">
             <div className="bg-white shadow">
               <div className="flex items-center justify-between p-5">

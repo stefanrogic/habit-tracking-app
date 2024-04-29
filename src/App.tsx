@@ -3,7 +3,6 @@ import HomePage from "./pages/homePage/HomePage";
 
 import { useState } from "react";
 
-//! IMPLEMENT EDIT
 function App() {
   const [username, setUsername] = useState<string>(localStorage.getItem("name") || "Guest");
 
