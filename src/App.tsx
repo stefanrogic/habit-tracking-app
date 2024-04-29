@@ -1,5 +1,5 @@
 import WelcomeModal from "./components/modals/WelcomeModal";
-import MainTab from "./tabs/mainTab/MainTab";
+import HomePage from "./pages/homePage/HomePage";
 
 import { useState } from "react";
 
@@ -24,8 +24,8 @@ function App() {
           </div>
         </nav>
 
-        <WelcomeModal username={username} setUsername={setUsername} />
-        <MainTab username={username} getUrl={getUrl} />
+        <WelcomeModal setUsername={setUsername} />
+        <HomePage username={username} getUrl={getUrl} />
       </div>
     </>
   );
