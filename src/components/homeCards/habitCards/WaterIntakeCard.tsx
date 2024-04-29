@@ -1,25 +1,23 @@
+import WaterIndicator from "./WaterIndicator";
+
 type Props = {
-  percent: number;
+  goal: number;
+  progress: number;
 };
 
-const WaterIntakeCard = ({ percent }: Props) => {
+const WaterIntakeCard = ({ goal, progress }: Props) => {
   return (
-    <div className="relative bg-blue-200 aspect-[1/1] flex flex-col justify-start items-end  cursor-pointer">
-      <span className="absolute z-20 top-5 right-5 text-2xl text-white font-bold">{percent}%</span>
+    <div className="relative bg-blue-200 aspect-[1/1] flex flex-col justify-start items-end">
+      <span className="absolute z-20 top-5 right-5 text-2xl text-white font-bold">{Math.round((progress / goal) * 100)}%</span>
       <span className="absolute z-20 left-5 bottom-5 text-3xl text-white font-bold">Water Intake</span>
-      <div className="absolute z-20 right-5 bottom-7 flex flex-col gap-2">
-        <div className="h-4 w-4 rounded-full bg-slate-200"></div>
-        <div className="h-4 w-4 rounded-full bg-slate-200"></div>
-        <div className="h-4 w-4 rounded-full bg-slate-200"></div>
-        <div className="h-4 w-4 rounded-full bg-slate-200"></div>
-        <div className="h-4 w-4 rounded-full bg-slate-200"></div>
-        <div className="h-4 w-4 rounded-full bg-slate-200"></div>
-        <div className="h-4 w-4 rounded-full bg-slate-200"></div>
-        <div className="h-4 w-4 rounded-full bg-slate-200"></div>
-        <div className="h-4 w-4 rounded-full bg-slate-100"></div>
-        <div className="h-4 w-4 rounded-full bg-slate-100"></div>
+      <div className="absolute z-20 right-5 bottom-6 flex flex-col flex-wrap-reverse gap-2 h-[73%]">
+        {Array(goal)
+          .fill(0)
+          .map((_, i: number) => (
+            <WaterIndicator key={i} select={i + 1 <= goal ? true : false} />
+          ))}
       </div>
-      <div className={`absolute z-10 bottom-0 w-full h-[${percent}%] flex flex-col justify-start items-end bg-blue-500 cursor-pointer`}></div>
+      <div className="absolute z-10 bottom-0 w-full flex flex-col justify-start items-end bg-blue-500" style={{ height: (progress / goal) * 100 + "%" }}></div>
     </div>
   );
 };

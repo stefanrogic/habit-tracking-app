@@ -1,10 +1,27 @@
 import WaterIntakeCard from "../homeCards/habitCards/WaterIntakeCard";
 
+import { useState } from "react";
+
+type Habits = {
+  type: string;
+  name: string;
+  start?: Date;
+  count?: number[];
+  goal: number;
+  progress: number;
+};
+
 type Props = {
   getUrl: (value: string) => string;
 };
 
 const HabitsShort = ({ getUrl }: Props) => {
+  const [habits] = useState<Habits[]>([
+    { type: "water-intake", name: "Water Intake", start: new Date("17-Apr-24"), goal: 10, progress: 3 },
+    { type: "water-intake", name: "Water Intake", start: new Date("17-Apr-24"), goal: 12, progress: 5 },
+    { type: "water-intake", name: "Water Intake", start: new Date("17-Apr-24"), goal: 9, progress: 7 },
+  ]);
+
   return (
     <div className="flex flex-col gap-10">
       <div className="flex flex-col gap-5">
@@ -15,9 +32,9 @@ const HabitsShort = ({ getUrl }: Props) => {
         </div>
 
         <div className="grid grid-cols-3 grid-flow-row gap-5">
-          <WaterIntakeCard percent={30} />
-          <WaterIntakeCard percent={53} />
-          <WaterIntakeCard percent={75} />
+          {habits.map((habit, i) => (
+            <WaterIntakeCard key={i} goal={habit.goal} progress={habit.progress} />
+          ))}
         </div>
       </div>
     </div>
