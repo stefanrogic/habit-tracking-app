@@ -1,3 +1,4 @@
+import CountUpCard from "../homeCards/habitCards/CountUpCard";
 import WaterIntakeCard from "../homeCards/habitCards/WaterIntakeCard";
 
 import { useState } from "react";
@@ -8,8 +9,8 @@ type Habits = {
   name: string;
   start?: Date;
   count?: number[];
-  goal: number;
-  progress: number;
+  goal: number | Date;
+  progress?: number;
 };
 
 type Props = {
@@ -20,7 +21,7 @@ const HabitsShort = ({ getUrl }: Props) => {
   const [habits, setHabits] = useState<Habits[]>([
     { id: 0, type: "water-intake", name: "Water Intake", start: new Date("17-Apr-24"), goal: 10, progress: 3 },
     { id: 1, type: "water-intake", name: "Water Intake", start: new Date("17-Apr-24"), goal: 12, progress: 5 },
-    { id: 2, type: "water-intake", name: "Water Intake", start: new Date("17-Apr-24"), goal: 9, progress: 7 },
+    { id: 2, type: "count-up", name: "Alcohol Free", start: new Date("29-Apr-24"), goal: new Date("30-May-24") },
   ]);
 
   return (
@@ -33,9 +34,15 @@ const HabitsShort = ({ getUrl }: Props) => {
         </div>
 
         <div className="grid grid-cols-3 grid-flow-row gap-5">
-          {habits.map((habit, i) => (
-            <WaterIntakeCard key={i} habit={habit} habits={habits} setHabits={setHabits} />
-          ))}
+          {habits.map((habit, i) => {
+            if (habit.type === "water-intake") {
+              return <WaterIntakeCard key={i} habit={habit} />;
+            }
+
+            if (habit.type === "count-up") {
+              return <CountUpCard key={i} habit={habit} getUrl={getUrl} />;
+            }
+          })}
         </div>
       </div>
     </div>

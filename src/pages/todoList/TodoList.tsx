@@ -40,7 +40,7 @@ const TodoList = () => {
         <h1 className="text-3xl font-bold">TODO List</h1>
         <div className="flex flex-row gap-5">
           <input
-            className="border  text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-96 px-2.5 bg-slate-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+            className="border text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-96 px-2.5 bg-slate-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
             type="text"
             placeholder="Enter your task"
             onChange={(e) => setNewTodo(e.target.value)}
