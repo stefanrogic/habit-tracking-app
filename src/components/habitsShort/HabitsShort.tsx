@@ -9,7 +9,7 @@ type Habits = {
   name: string;
   start?: Date;
   count?: number[];
-  goal: number | Date;
+  goal?: number | Date;
   progress?: number;
 };
 
@@ -21,7 +21,8 @@ const HabitsShort = ({ getUrl }: Props) => {
   const [habits, setHabits] = useState<Habits[]>([
     { id: 0, type: "water-intake", name: "Water Intake", start: new Date("17-Apr-24"), goal: 10, progress: 3 },
     { id: 1, type: "water-intake", name: "Water Intake", start: new Date("17-Apr-24"), goal: 12, progress: 5 },
-    { id: 2, type: "count-up", name: "Alcohol Free", start: new Date("29-Apr-24"), goal: new Date("30-May-24") },
+    { id: 2, type: "count-up", name: "Alcohol Free", start: new Date("01-May-24"), goal: new Date("10-May-24") },
+    { id: 2, type: "count-up", name: "Alcohol Free", start: new Date("22-Apr-24") },
   ]);
 
   return (
