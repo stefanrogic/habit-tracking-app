@@ -12,7 +12,7 @@ const NewMealModal = ({ meals, setMeals, getUrl }: Props) => {
 
   return (
     <>
-      <button className=" absolute z-10 bottom-5 right-5 text-white hover:bg-green-600 font-medium text-sm p-3 py-3 bg-green-700" type="button" onClick={() => setModalToggle(!modalToggle)}>
+      <button className="absolute z-10 top-5 left-5 text-white hover:bg-green-600 font-medium text-sm p-3 py-3 bg-green-700" type="button" onClick={() => setModalToggle(!modalToggle)}>
         <img className="h-6 w-6" src={getUrl("icons/plus.svg")} alt="add-icon" />
       </button>
 

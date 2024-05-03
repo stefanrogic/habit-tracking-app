@@ -28,6 +28,7 @@ const HabitsShort = ({ getUrl }: Props) => {
     { id: 2, type: "count-up", name: "Alcohol Free", startDate: new Date("01-May-24"), goal: new Date("10-May-24") },
     { id: 3, type: "meal", name: "Calories", start: 0, progress: [1200, 820, 600], goal: 2800 },
   ]);
+  const [editMode, setEditMode] = useState<boolean>(false);
 
   return (
     <div className="flex flex-col gap-10">
@@ -35,27 +36,27 @@ const HabitsShort = ({ getUrl }: Props) => {
         <div className="flex flex-row justify-end gap-5">
           <NewHabitModal habits={habits} setHabits={setHabits} getUrl={getUrl} />
 
-          <button className=" text-white hover:bg-slate-700 font-medium text-sm p-3 py-3 h-full bg-slate-900" type="button">
-            <img className="h-5 w-5" src={getUrl("icons/gear-fill.svg")} alt="add-icon" />
+          <button className=" text-white hover:bg-slate-700 font-medium text-sm p-3 py-3 h-full bg-slate-900" type="button" onClick={() => setEditMode(!editMode)}>
+            <img className="h-5 w-5" src={getUrl("icons/gear-fill.svg")} alt="edit-icon" />
           </button>
         </div>
 
         <div className="grid grid-cols-3 grid-flow-row gap-5">
           {habits.map((habit, i) => {
             if (habit.type === "water-intake") {
-              return <WaterIntakeCard key={i} habit={habit} />;
+              return <WaterIntakeCard habits={habits} setHabits={setHabits} editMode={editMode} key={i} habit={habit} getUrl={getUrl} />;
             }
 
             if (habit.type === "count-up") {
-              return <CountUpCard key={i} habit={habit} />;
+              return <CountUpCard habits={habits} setHabits={setHabits} editMode={editMode} key={i} habit={habit} getUrl={getUrl} />;
             }
 
             if (habit.type === "reading") {
-              return <ReadingCard key={i} habit={habit} getUrl={getUrl} />;
+              return <ReadingCard habits={habits} setHabits={setHabits} editMode={editMode} key={i} habit={habit} getUrl={getUrl} />;
             }
 
             if (habit.type === "meal") {
-              return <MealCard className="col-auto" key={i} habit={habit} getUrl={getUrl} />;
+              return <MealCard habits={habits} setHabits={setHabits} editMode={editMode} className="col-auto" key={i} habit={habit} getUrl={getUrl} />;
             }
           })}
         </div>

@@ -15,7 +15,7 @@ type Props = {
   getUrl: (value: string) => string;
 };
 
-const CountUpCard = ({ habit, getUrl }: Props) => {
+const CountUpCard = ({ habits, setHabits, editMode, habit, getUrl }: Props) => {
   const second = 1000;
   const minute = second * 60;
   const hour = minute * 60;
@@ -63,6 +63,36 @@ const CountUpCard = ({ habit, getUrl }: Props) => {
       <span className="absolute z-20 left-5 bottom-5 text-3xl text-white font-bold">{renderedProgress}</span>
       <span className="absolute z-20 left-5 bottom-14 text-3xl text-white font-bold">{habit.name}</span>
       {goal && <div className="absolute z-10 bottom-0 w-full flex flex-col justify-start items-end bg-red-500" style={{ height: Math.abs((progress / goal) * 100) > 100 ? "100" : Math.abs((progress / goal) * 100) + "%" }}></div>}
+
+      {editMode && (
+        <>
+          <button
+            id={String(habit.id)}
+            className="absolute z-10 top-5 left-5 text-white hover:bg-red-600 font-medium text-sm p-3 py-3 bg-red-700"
+            type="button"
+            onClick={(e) => {
+              console.log(habit.id, Number((e.target as HTMLButtonElement).id));
+              const newState = habits.filter((h: Habits) => Number(h.id) !== Number((e.target as HTMLButtonElement).id));
+              setHabits(newState);
+            }}
+          >
+            <img
+              id={String(habit.id)}
+              className="h-6 w-6"
+              src={getUrl("icons/trash3-fill.svg")}
+              alt="remove-icon"
+              onClick={(e) => {
+                console.log(habit.id, Number((e.target as HTMLButtonElement).id));
+                const newState = habits.filter((h: Habits) => Number(h.id) !== Number((e.target as HTMLButtonElement).id));
+                setHabits(newState);
+              }}
+            />
+          </button>
+          <button className="absolute z-10 top-5 left-20 text-white hover:bg-red-600 font-medium text-sm p-3 py-3 bg-red-700" type="button">
+            <img className="h-6 w-6" src={getUrl("icons/pen-fill.svg")} alt="remove-icon" />
+          </button>
+        </>
+      )}
     </div>
   );
 };

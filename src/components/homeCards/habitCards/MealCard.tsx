@@ -13,11 +13,14 @@ type Habits = {
 };
 
 type Props = {
+  habits: Habits[];
+  setHabits: React.Dispatch<React.SetStateAction<Habits[]>>;
+  editMode: boolean;
   habit: Habits;
   getUrl: (value: string) => string;
 };
 
-const MealCard = ({ habit, getUrl }: Props) => {
+const MealCard = ({ habits, setHabits, editMode, habit, getUrl }: Props) => {
   const [meals, setMeals] = useState<number[]>(habit.progress);
 
   const renderProgress = () => meals.reduce((partialSum, a) => partialSum + a, 0) + " / " + habit.goal + "kcal";
@@ -36,8 +39,37 @@ const MealCard = ({ habit, getUrl }: Props) => {
       {/* <button className=" absolute z-10 bottom-5 right-5 text-white hover:bg-green-600 font-medium text-sm p-3 py-3 bg-green-700" type="button">
         <img className="h-6 w-6" src={getUrl("icons/plus.svg")} alt="add-icon" />
       </button> */}
-
-      <NewMealModal meals={meals} setMeals={setMeals} getUrl={getUrl} />
+      {!editMode ? (
+        <NewMealModal meals={meals} setMeals={setMeals} getUrl={getUrl} />
+      ) : (
+        <>
+          <button
+            id={String(habit.id)}
+            className="absolute z-10 top-5 left-5 text-white hover:bg-green-600 font-medium text-sm p-3 py-3 bg-green-700"
+            type="button"
+            onClick={(e) => {
+              console.log(habit.id, Number((e.target as HTMLButtonElement).id));
+              const newState = habits.filter((h: Habits) => Number(h.id) !== Number((e.target as HTMLButtonElement).id));
+              setHabits(newState);
+            }}
+          >
+            <img
+              id={String(habit.id)}
+              className="h-6 w-6"
+              src={getUrl("icons/trash3-fill.svg")}
+              alt="remove-icon"
+              onClick={(e) => {
+                console.log(habit.id, Number((e.target as HTMLButtonElement).id));
+                const newState = habits.filter((h: Habits) => Number(h.id) !== Number((e.target as HTMLButtonElement).id));
+                setHabits(newState);
+              }}
+            />
+          </button>
+          <button className="absolute z-10 top-5 left-20 text-white hover:bg-green-600 font-medium text-sm p-3 py-3 bg-green-700" type="button">
+            <img className="h-6 w-6" src={getUrl("icons/pen-fill.svg")} alt="remove-icon" />
+          </button>
+        </>
+      )}
     </div>
   );
 };
