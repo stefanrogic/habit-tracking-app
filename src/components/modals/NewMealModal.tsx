@@ -18,7 +18,7 @@ const NewMealModal = ({ habits, setHabits, getUrl }: Props) => {
 
   return (
     <>
-      <button className="flex items-center gap-1 text-white hover:bg-blue-800 font-medium text-sm ps-5 pe-6 py-3 h-full bg-blue-600" type="button" onClick={() => setModalToggle(!modalToggle)}>
+      <button className="flex items-center gap-1 text-white hover:bg-slate-800 font-medium text-sm ps-5 pe-6 py-3 h-full bg-slate-900" type="button" onClick={() => setModalToggle(!modalToggle)}>
         <img className="h-5 w-5" src={getUrl("icons/plus.svg")} alt="add-icon" /> New Habit
       </button>
 

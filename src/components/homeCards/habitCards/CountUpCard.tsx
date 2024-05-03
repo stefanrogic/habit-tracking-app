@@ -62,7 +62,7 @@ const CountUpCard = ({ habit, getUrl }: Props) => {
       {goal && <span className="absolute z-20 top-5 right-5 text-2xl text-white font-bold">{Math.round(Math.abs((progress / goal) * 100))}%</span>}
       <span className="absolute z-20 left-5 bottom-5 text-3xl text-white font-bold">{renderedProgress}</span>
       <span className="absolute z-20 left-5 bottom-14 text-3xl text-white font-bold">{habit.name}</span>
-      {goal && <div className="absolute z-10 bottom-0 w-full flex flex-col justify-start items-end bg-red-500" style={{ height: Math.abs((progress / goal) * 100) + "%" }}></div>}
+      {goal && <div className="absolute z-10 bottom-0 w-full flex flex-col justify-start items-end bg-red-500" style={{ height: Math.abs((progress / goal) * 100) > 100 ? "100" : Math.abs((progress / goal) * 100) + "%" }}></div>}
     </div>
   );
 };

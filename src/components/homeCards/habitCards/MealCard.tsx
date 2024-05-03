@@ -18,7 +18,7 @@ type Props = {
 const MealCard = ({ habit, getUrl }: Props) => {
   const [meals, setMeals] = useState<number[]>(habit.progress);
 
-  const renderProgress = () => meals.reduce((partialSum, a) => partialSum + a, 0) + " kcal";
+  const renderProgress = () => meals.reduce((partialSum, a) => partialSum + a, 0) + " / " + habit.goal + "kcal";
 
   return (
     <div className="relative bg-green-400 aspect-[1/1] flex flex-col justify-start items-end">

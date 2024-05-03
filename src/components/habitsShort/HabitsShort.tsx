@@ -35,7 +35,7 @@ const HabitsShort = ({ getUrl }: Props) => {
         <div className="flex flex-row justify-end gap-5">
           <NewHabitModal habits={habits} setHabits={setHabits} getUrl={getUrl} />
 
-          <button className=" text-white hover:bg-blue-800 font-medium text-sm p-3 py-3 h-full bg-blue-600" type="button">
+          <button className=" text-white hover:bg-slate-700 font-medium text-sm p-3 py-3 h-full bg-slate-900" type="button">
             <img className="h-5 w-5" src={getUrl("icons/gear-fill.svg")} alt="add-icon" />
           </button>
         </div>

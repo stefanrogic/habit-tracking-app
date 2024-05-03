@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 type Habits = {
+  id: number;
   type: string;
   name: string;
   start?: number;
@@ -21,14 +22,9 @@ const NewHabitModal = ({ habits, setHabits, getUrl }: Props) => {
   const [selected, setSelected] = useState<number>(0);
   const [newHabit, setNewHabit] = useState<Habits | undefined>();
 
-  const [countName, setCountName] = useState<number>(0);
-  const [bookGoal, setBookGoal] = useState<number>(0);
-  const [waterGoal, setWaterGoal] = useState<number>(0);
-  const [calGoal, setCalGoal] = useState<number>(0);
-
   return (
     <>
-      <button className="flex items-center gap-1 text-white hover:bg-blue-800 font-medium text-sm ps-5 pe-6 py-3 h-full bg-blue-600" type="button" onClick={() => setModalToggle(!modalToggle)}>
+      <button className="flex items-center gap-1 text-white hover:bg-slate-700 font-medium text-sm ps-5 pe-6 py-3 h-full bg-slate-900" type="button" onClick={() => setModalToggle(!modalToggle)}>
         <img className="h-5 w-5" src={getUrl("icons/plus.svg")} alt="add-icon" /> New Habit
       </button>
 
@@ -58,7 +54,7 @@ const NewHabitModal = ({ habits, setHabits, getUrl }: Props) => {
               <div className="px-5 space-y-4">
                 <div className="flex gap-2">
                   <span
-                    className={`py-2 px-4 border-2 border-blue-500 text-black cursor-pointer font-bold ${selected === 0 && "bg-blue-500 text-white"}`}
+                    className={`py-2 px-4 border-2 border-slate-900 text-black cursor-pointer font-bold ${selected === 0 && "bg-slate-900 text-white"}`}
                     onClick={() => {
                       setSelected(0);
                     }}
@@ -66,7 +62,7 @@ const NewHabitModal = ({ habits, setHabits, getUrl }: Props) => {
                     Read a Book
                   </span>
                   <span
-                    className={`py-2 px-4 border-2 border-blue-500 text-black cursor-pointer font-bold ${selected === 1 && "bg-blue-500 text-white"}`}
+                    className={`py-2 px-4 border-2 border-slate-900 text-black cursor-pointer font-bold ${selected === 1 && "bg-slate-900 text-white"}`}
                     onClick={() => {
                       setSelected(1);
                     }}
@@ -74,7 +70,7 @@ const NewHabitModal = ({ habits, setHabits, getUrl }: Props) => {
                     Water Intake
                   </span>
                   <span
-                    className={`py-2 px-4 border-2 border-blue-500 text-black cursor-pointer font-bold ${selected === 2 && "bg-blue-500 text-white"}`}
+                    className={`py-2 px-4 border-2 border-slate-900 text-black cursor-pointer font-bold ${selected === 2 && "bg-slate-900 text-white"}`}
                     onClick={() => {
                       setSelected(2);
                     }}
@@ -82,7 +78,7 @@ const NewHabitModal = ({ habits, setHabits, getUrl }: Props) => {
                     Count Up
                   </span>
                   <span
-                    className={`py-2 px-4 border-2 border-blue-500 text-black cursor-pointer font-bold ${selected === 3 && "bg-blue-500 text-white"}`}
+                    className={`py-2 px-4 border-2 border-slate-900 text-black cursor-pointer font-bold ${selected === 3 && "bg-slate-900 text-white"}`}
                     onClick={() => {
                       setSelected(3);
                     }}
@@ -92,56 +88,76 @@ const NewHabitModal = ({ habits, setHabits, getUrl }: Props) => {
                 </div>
                 <div>
                   {selected === 0 || selected === 1 || selected === 3 ? (
-                    <>
-                      <span>Goal</span>
+                    <div className="flex flex-col gap-2">
+                      <span>Target</span>
                       <input
                         className="w-full p-3 bg-white border"
                         type="text"
-                        placeholder="Enter amount..."
+                        placeholder={`Enter ${selected === 0 ? "book length" : selected === 1 ? "number of glasses" : "your calorie target"}...`}
                         onChange={(e) => {
                           if (selected === 0) {
                             // setBookGoal(e.target.value);
-                            setNewHabit({ name: "Read a Book", type: "reading", start: 0, progress: 0, goal: Number(e.target.value) });
+                            setNewHabit({ id: habits.length, name: "Read a Book", type: "reading", start: 0, progress: 0, goal: Number(e.target.value) });
                           }
 
                           if (selected === 1) {
                             // setWaterGoal(e.target.value);
-                            setNewHabit({ name: "Water Intake", type: "water-intake", start: 0, goal: Number(e.target.value), progress: 0 });
+                            setNewHabit({ id: habits.length, name: "Water Intake", type: "water-intake", start: 0, goal: Number(e.target.value), progress: 0 });
                           }
 
                           if (selected === 3) {
                             // setCalGoal(e.target.value);
-                            setNewHabit({ name: "Calory Intake", type: "meal", start: 0, progress: [1200, 820, 600], goal: Number(e.target.value) });
+                            setNewHabit({ id: habits.length, name: "Calory Intake", type: "meal", start: 0, progress: [], goal: Number(e.target.value) });
                           }
                         }}
                       />
-                    </>
+                    </div>
                   ) : (
                     ""
                   )}
 
                   {selected === 2 ? (
-                    <>
-                      <span>Name</span>
-                      <input
-                        className="w-full p-3 bg-white border"
-                        type="text"
-                        placeholder="Enter counter name..."
-                        onChange={(e) => {
-                          // setCountName(e.target.value);
-                          setNewHabit({ name: e.target.value, type: "count-up", startDate: new Date(), goal: new Date() });
-                        }}
-                      />
-                    </>
+                    <div className="flex flex-col gap-5">
+                      <div className="flex flex-col gap-2">
+                        <span>Name</span>
+                        <input
+                          className="w-full p-3 bg-white border"
+                          type="text"
+                          placeholder="Enter counter name..."
+                          onChange={(e) => {
+                            setNewHabit({
+                              id: habits.length,
+                              name: newHabit?.name ? newHabit?.name : e.target.value,
+                              type: "count-up",
+                              startDate: newHabit?.startDate ? newHabit?.startDate : new Date(),
+                              goal: newHabit?.goal ? newHabit?.goal : false,
+                            });
+                          }}
+                        />
+                      </div>
+
+                      <div className="flex flex-col gap-2">
+                        <span>Target (can leave empty)</span>
+                        <input
+                          className="w-full p-3 bg-white border"
+                          type="date"
+                          onChange={(e) => {
+                            console.log(e.target.value);
+
+                            setNewHabit({ id: habits.length, name: newHabit?.name ? newHabit?.name : "", type: "count-up", startDate: newHabit?.startDate ? newHabit?.startDate : new Date(), goal: new Date(e.target.value) });
+                          }}
+                        />
+                      </div>
+                    </div>
                   ) : (
                     ""
                   )}
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 p-5">
+              <div className="flex items-center gap-4 p-5 pt-14">
                 <button
-                  className="text-white hover:bg-blue-800 font-medium text-sm px-5 py-3 h-full bg-blue-600"
+                  className="text-white hover:bg-slate-700 font-medium text-sm px-5 py-3 h-full bg-slate-900"
                   onClick={() => {
                     setHabits([...habits, newHabit]);
                     setModalToggle(false);

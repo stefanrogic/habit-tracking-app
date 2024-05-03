@@ -27,9 +27,9 @@ const WelcomeModal = ({ setUsername }: Props) => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 p-5">
+              <div className="flex items-center gap-4 p-5 pt-14">
                 <button
-                  className="text-white hover:bg-blue-800 font-medium text-sm px-5 py-3 h-full bg-blue-600"
+                  className="text-white hover:bg-slate-700 font-medium text-sm px-5 py-3 h-full bg-slate-900"
                   onClick={() => {
                     if (input.length > 0 && check) {
                       setUsername(input);
