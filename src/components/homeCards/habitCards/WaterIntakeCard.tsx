@@ -21,7 +21,7 @@ const WaterIntakeCard = ({ habit }: Props) => {
   return (
     <div className="relative bg-blue-200 aspect-[1/1] flex flex-col justify-start items-end">
       <span className="absolute z-20 top-5 right-5 text-2xl text-white font-bold">{Math.round((progress / habit.goal) * 100)}%</span>
-      <span className="absolute z-20 left-5 bottom-5 text-3xl text-white font-bold">Water Intake</span>
+      <span className="absolute z-20 left-5 bottom-5 text-3xl text-white font-bold">{habit.name}</span>
       <div className="absolute z-20 right-5 bottom-6 flex flex-col-reverse flex-wrap-reverse gap-2 h-[73%]">
         {Array(habit.goal)
           .fill(0)
