@@ -4,7 +4,7 @@ type Habits = {
   id: number;
   type: string;
   name: string;
-  start?: Date;
+  startDate?: Date;
   count?: number[];
   goal: Date;
   progress: number;
@@ -22,7 +22,7 @@ const CountUpCard = ({ habit, getUrl }: Props) => {
   const day = hour * 24;
 
   const [progress, setProgress] = useState<number>(() => {
-    const gap = Date.now() - habit.start;
+    const gap = Date.now() - habit.startDate;
     const daysGap = Math.floor(gap / day);
 
     return daysGap;
@@ -38,13 +38,13 @@ const CountUpCard = ({ habit, getUrl }: Props) => {
   });
 
   const renderProgress = (): string => {
-    const gap = Date.now() - habit.start;
+    const gap = Date.now() - habit.startDate;
     const daysGap = Math.floor(gap / day);
     const hoursGap = Math.floor((gap % day) / hour);
     const minutesGap = Math.floor((gap % hour) / minute);
     const secondsGap = Math.floor((gap % minute) / second);
 
-    return `${daysGap}d ${hoursGap}h ${minutesGap}m ${secondsGap}s`;
+    return `${daysGap < 10 ? "0" + daysGap : daysGap}d ${hoursGap < 10 ? "0" + hoursGap : hoursGap}h ${minutesGap < 10 ? "0" + minutesGap : minutesGap}m ${secondsGap < 10 ? "0" + secondsGap : secondsGap}s`;
   };
 
   const [renderedProgress, setRenderedProgress] = useState<string>(renderProgress());

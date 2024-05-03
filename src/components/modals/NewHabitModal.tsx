@@ -3,8 +3,11 @@ import React, { useState } from "react";
 type Habits = {
   type: string;
   name: string;
-  start?: Date;
+  start?: number;
+  startDate?: Date;
   count?: number[];
+  progress?: Date | number | number[];
+  goal?: Date | number;
 };
 
 type Props = {
@@ -15,7 +18,13 @@ type Props = {
 
 const NewHabitModal = ({ habits, setHabits, getUrl }: Props) => {
   const [modalToggle, setModalToggle] = useState<boolean>(false);
-  // const [newHabit, setNewHabit] = useState<Habits | undefined>();
+  const [selected, setSelected] = useState<number>(0);
+  const [newHabit, setNewHabit] = useState<Habits | undefined>();
+
+  const [countName, setCountName] = useState<number>(0);
+  const [bookGoal, setBookGoal] = useState<number>(0);
+  const [waterGoal, setWaterGoal] = useState<number>(0);
+  const [calGoal, setCalGoal] = useState<number>(0);
 
   return (
     <>
@@ -48,13 +57,85 @@ const NewHabitModal = ({ habits, setHabits, getUrl }: Props) => {
 
               <div className="px-5 space-y-4">
                 <div className="flex gap-2">
-                  <span className="py-2 px-4 border-2 border-blue-500 text-black">Project</span>
-                  <span className="py-2 px-4 border-2 border-blue-500 text-black">Water Intake</span>
-                  <span className="py-2 px-4 border-2 border-blue-500 text-black">Alcohol Free</span>
+                  <span
+                    className={`py-2 px-4 border-2 border-blue-500 text-black cursor-pointer font-bold ${selected === 0 && "bg-blue-500 text-white"}`}
+                    onClick={() => {
+                      setSelected(0);
+                    }}
+                  >
+                    Read a Book
+                  </span>
+                  <span
+                    className={`py-2 px-4 border-2 border-blue-500 text-black cursor-pointer font-bold ${selected === 1 && "bg-blue-500 text-white"}`}
+                    onClick={() => {
+                      setSelected(1);
+                    }}
+                  >
+                    Water Intake
+                  </span>
+                  <span
+                    className={`py-2 px-4 border-2 border-blue-500 text-black cursor-pointer font-bold ${selected === 2 && "bg-blue-500 text-white"}`}
+                    onClick={() => {
+                      setSelected(2);
+                    }}
+                  >
+                    Count Up
+                  </span>
+                  <span
+                    className={`py-2 px-4 border-2 border-blue-500 text-black cursor-pointer font-bold ${selected === 3 && "bg-blue-500 text-white"}`}
+                    onClick={() => {
+                      setSelected(3);
+                    }}
+                  >
+                    Calory Intake
+                  </span>
                 </div>
                 <div>
-                  <span>Goal</span>
-                  <input className="w-full p-3 bg-white border" type="text" placeholder="Enter amount..." />
+                  {selected === 0 || selected === 1 || selected === 3 ? (
+                    <>
+                      <span>Goal</span>
+                      <input
+                        className="w-full p-3 bg-white border"
+                        type="text"
+                        placeholder="Enter amount..."
+                        onChange={(e) => {
+                          if (selected === 0) {
+                            // setBookGoal(e.target.value);
+                            setNewHabit({ name: "Read a Book", type: "reading", start: 0, progress: 0, goal: Number(e.target.value) });
+                          }
+
+                          if (selected === 1) {
+                            // setWaterGoal(e.target.value);
+                            setNewHabit({ name: "Water Intake", type: "water-intake", start: 0, goal: Number(e.target.value), progress: 0 });
+                          }
+
+                          if (selected === 3) {
+                            // setCalGoal(e.target.value);
+                            setNewHabit({ name: "Calory Intake", type: "meal", start: 0, progress: [1200, 820, 600], goal: Number(e.target.value) });
+                          }
+                        }}
+                      />
+                    </>
+                  ) : (
+                    ""
+                  )}
+
+                  {selected === 2 ? (
+                    <>
+                      <span>Name</span>
+                      <input
+                        className="w-full p-3 bg-white border"
+                        type="text"
+                        placeholder="Enter counter name..."
+                        onChange={(e) => {
+                          // setCountName(e.target.value);
+                          setNewHabit({ name: e.target.value, type: "count-up", startDate: new Date(), goal: new Date() });
+                        }}
+                      />
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
 
@@ -62,7 +143,7 @@ const NewHabitModal = ({ habits, setHabits, getUrl }: Props) => {
                 <button
                   className="text-white hover:bg-blue-800 font-medium text-sm px-5 py-3 h-full bg-blue-600"
                   onClick={() => {
-                    setHabits([...habits, { type: "count-times", name: "Water Intake", count: [1, 3, 5] }]);
+                    setHabits([...habits, newHabit]);
                     setModalToggle(false);
                   }}
                 >
