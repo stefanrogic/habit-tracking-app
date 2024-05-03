@@ -57,7 +57,7 @@ const NewPagesModal = ({ progress, setProgress, getUrl }: Props) => {
                 <button
                   className="text-white hover:bg-blue-800 font-medium text-sm px-5 py-3 h-full bg-blue-600"
                   onClick={() => {
-                    setProgress(progress + Number(pages));
+                    setProgress([...progress, Number(pages)]);
                     setModalToggle(false);
                   }}
                 >

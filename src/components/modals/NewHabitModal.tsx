@@ -97,7 +97,7 @@ const NewHabitModal = ({ habits, setHabits, getUrl }: Props) => {
                         onChange={(e) => {
                           if (selected === 0) {
                             // setBookGoal(e.target.value);
-                            setNewHabit({ id: habits.length, name: "Read a Book", type: "reading", start: 0, progress: 0, goal: Number(e.target.value) });
+                            setNewHabit({ id: habits.length, name: "Read a Book", type: "reading", start: 0, progress: [0], goal: Number(e.target.value) });
                           }
 
                           if (selected === 1) {
