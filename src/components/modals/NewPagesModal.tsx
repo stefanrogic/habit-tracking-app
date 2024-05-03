@@ -1,18 +1,18 @@
 import { useState } from "react";
 
 type Props = {
-  meals: number[];
-  setMeals: React.Dispatch<React.SetStateAction<number[]>>;
+  progress: number;
+  setProgress: React.Dispatch<React.SetStateAction<number>>;
   getUrl: (value: string) => string;
 };
 
-const NewMealModal = ({ meals, setMeals, getUrl }: Props) => {
+const NewPagesModal = ({ progress, setProgress, getUrl }: Props) => {
   const [modalToggle, setModalToggle] = useState<boolean>(false);
-  const [meal, setMeal] = useState<number>(0);
+  const [pages, setPages] = useState<number>(0);
 
   return (
     <>
-      <button className=" absolute z-10 bottom-5 right-5 text-white hover:bg-green-600 font-medium text-sm p-3 py-3 bg-green-700" type="button" onClick={() => setModalToggle(!modalToggle)}>
+      <button className="absolute z-10 bottom-5 right-5 text-white hover:bg-yellow-600 font-medium text-sm p-3 py-3 bg-yellow-700" type="button" onClick={() => setModalToggle(!modalToggle)}>
         <img className="h-6 w-6" src={getUrl("icons/plus.svg")} alt="add-icon" />
       </button>
 
@@ -20,13 +20,13 @@ const NewMealModal = ({ meals, setMeals, getUrl }: Props) => {
         <div
           id="modal-bg"
           aria-hidden="true"
-          className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-start w-full h-full  bg-slate-900 bg-opacity-50"
+          className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-start w-full h-full bg-slate-900 bg-opacity-50"
           onClick={(e) => (e.target as HTMLDivElement).id === "modal-bg" && setModalToggle(false)}
         >
           <div className="mt-10 w-full max-w-2xl max-h-full border">
             <div className="bg-white shadow">
               <div className="flex items-center justify-between p-5">
-                <h3 className="text-xl font-semibold text-black">Add a meal</h3>
+                <h3 className="text-xl font-semibold text-black">Update progress</h3>
                 <button
                   type="button"
                   className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -41,13 +41,13 @@ const NewMealModal = ({ meals, setMeals, getUrl }: Props) => {
 
               <div className="flex flex-col gap-5 px-5">
                 <div className="flex flex-col gap-2">
-                  <span>Meal</span>
+                  <span>Pages</span>
                   <input
                     className="w-full p-3 bg-white border"
                     type="number"
-                    placeholder={`Enter number of calories you consumed...`}
+                    placeholder={`Enter number of pages you've read...`}
                     onChange={(e) => {
-                      setMeal(e.target.value);
+                      setPages(e.target.value);
                     }}
                   />
                 </div>
@@ -57,7 +57,7 @@ const NewMealModal = ({ meals, setMeals, getUrl }: Props) => {
                 <button
                   className="text-white hover:bg-blue-800 font-medium text-sm px-5 py-3 h-full bg-blue-600"
                   onClick={() => {
-                    setMeals([...meals, Number(meal)]);
+                    setProgress(progress + Number(pages));
                     setModalToggle(false);
                   }}
                 >
@@ -75,4 +75,4 @@ const NewMealModal = ({ meals, setMeals, getUrl }: Props) => {
   );
 };
 
-export default NewMealModal;
+export default NewPagesModal;

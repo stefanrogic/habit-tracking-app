@@ -24,7 +24,7 @@ type Props = {
 const HabitsShort = ({ getUrl }: Props) => {
   const [habits, setHabits] = useState<Habits[]>([
     { id: 0, type: "water-intake", name: "Water Intake", startDate: new Date("17-Apr-24"), goal: 10, progress: 3 },
-    { id: 1, type: "reading", name: "Read a Book", start: 0, progress: 147, goal: 365 },
+    { id: 1, type: "reading", name: "Read a Book", start: 0, progress: [147], goal: 365 },
     { id: 2, type: "count-up", name: "Alcohol Free", startDate: new Date("01-May-24"), goal: new Date("10-May-24") },
     { id: 3, type: "meal", name: "Calories", start: 0, progress: [1200, 820, 600], goal: 2800 },
   ]);

@@ -92,7 +92,7 @@ const NewHabitModal = ({ habits, setHabits, getUrl }: Props) => {
                       <span>Target</span>
                       <input
                         className="w-full p-3 bg-white border"
-                        type="text"
+                        type="number"
                         placeholder={`Enter ${selected === 0 ? "book length" : selected === 1 ? "number of glasses" : "your calorie target"}...`}
                         onChange={(e) => {
                           if (selected === 0) {

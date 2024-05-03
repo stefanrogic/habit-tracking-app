@@ -1,3 +1,5 @@
+import NewMealModal from "../../modals/NewMealModal";
+
 import { useState } from "react";
 
 type Habits = {
@@ -31,9 +33,11 @@ const MealCard = ({ habit, getUrl }: Props) => {
           style={{ height: (meals.reduce((partialSum, a) => partialSum + a, 0) / habit.goal) * 100 > 100 ? "100" : Math.abs((meals.reduce((partialSum, a) => partialSum + a, 0) / habit.goal) * 100) + "%" }}
         ></div>
       )}
-      <button className=" absolute z-10 bottom-5 right-5 text-white hover:bg-green-600 font-medium text-sm p-3 py-3 bg-green-700" type="button">
+      {/* <button className=" absolute z-10 bottom-5 right-5 text-white hover:bg-green-600 font-medium text-sm p-3 py-3 bg-green-700" type="button">
         <img className="h-6 w-6" src={getUrl("icons/plus.svg")} alt="add-icon" />
-      </button>
+      </button> */}
+
+      <NewMealModal meals={meals} setMeals={setMeals} getUrl={getUrl} />
     </div>
   );
 };
