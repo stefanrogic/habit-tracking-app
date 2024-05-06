@@ -4,7 +4,7 @@ import ReadingCard from "../homeCards/habitCards/ReadingCard";
 import WaterIntakeCard from "../homeCards/habitCards/WaterIntakeCard";
 import NewHabitModal from "../modals/NewHabitModal";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Habits = {
   id: number;
@@ -29,6 +29,8 @@ const HabitsShort = ({ getUrl }: Props) => {
     { id: 3, type: "meal", name: "Calories", start: 0, progress: [1200, 820, 600], goal: 2800 },
   ]);
   const [editMode, setEditMode] = useState<boolean>(false);
+
+  useEffect(() => localStorage.setItem("habitData", JSON.stringify(habits)), []);
 
   return (
     <div className="flex flex-col gap-10">
