@@ -22,7 +22,7 @@ const CountUpCard = ({ habits, setHabits, editMode, habit, getUrl }: Props) => {
   const day = hour * 24;
 
   const [progress, setProgress] = useState<number>(() => {
-    const gap = Date.now() - habit.startDate;
+    const gap = Date.now() - new Date(habit.startDate);
     const daysGap = Math.floor(gap / day);
 
     return daysGap;
@@ -30,7 +30,7 @@ const CountUpCard = ({ habits, setHabits, editMode, habit, getUrl }: Props) => {
 
   const [goal] = useState<number | boolean>(() => {
     if (habit.goal) {
-      const gap = habit.goal - Date.now();
+      const gap = new Date(habit.goal) - Date.now();
       const daysGap = Math.floor(gap / day);
 
       return daysGap;
@@ -38,7 +38,7 @@ const CountUpCard = ({ habits, setHabits, editMode, habit, getUrl }: Props) => {
   });
 
   const renderProgress = (): string => {
-    const gap = Date.now() - habit.startDate;
+    const gap = Date.now() - new Date(habit.startDate);
     const daysGap = Math.floor(gap / day);
     const hoursGap = Math.floor((gap % day) / hour);
     const minutesGap = Math.floor((gap % hour) / minute);
@@ -71,8 +71,8 @@ const CountUpCard = ({ habits, setHabits, editMode, habit, getUrl }: Props) => {
             className="absolute z-10 top-5 left-5 text-white hover:bg-red-600 font-medium text-sm p-3 py-3 bg-red-700"
             type="button"
             onClick={(e) => {
-              console.log(habit.id, Number((e.target as HTMLButtonElement).id));
               const newState = habits.filter((h: Habits) => Number(h.id) !== Number((e.target as HTMLButtonElement).id));
+              localStorage.setItem("habitData", JSON.stringify(newState));
               setHabits(newState);
             }}
           >
@@ -82,8 +82,8 @@ const CountUpCard = ({ habits, setHabits, editMode, habit, getUrl }: Props) => {
               src={getUrl("icons/trash3-fill.svg")}
               alt="remove-icon"
               onClick={(e) => {
-                console.log(habit.id, Number((e.target as HTMLButtonElement).id));
                 const newState = habits.filter((h: Habits) => Number(h.id) !== Number((e.target as HTMLButtonElement).id));
+                localStorage.setItem("habitData", JSON.stringify(newState));
                 setHabits(newState);
               }}
             />

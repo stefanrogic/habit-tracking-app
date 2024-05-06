@@ -2,9 +2,11 @@ import { useState } from "react";
 
 type Props = {
   setUsername: React.Dispatch<React.SetStateAction<string>>;
+
+  setTerms: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const WelcomeModal = ({ setUsername }: Props) => {
+const WelcomeModal = ({ setUsername, setTerms }: Props) => {
   const [input, setInput] = useState<string>("");
   const [check, setCheck] = useState<boolean>(false);
   const [modalToggle, setModalToggle] = useState<boolean>(localStorage.getItem("name") ? false : true);
@@ -34,6 +36,7 @@ const WelcomeModal = ({ setUsername }: Props) => {
                     if (input.length > 0 && check) {
                       setUsername(input);
                       localStorage.setItem("name", input);
+                      setTerms(true);
                       setModalToggle(false);
                     }
                   }}

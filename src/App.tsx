@@ -5,12 +5,13 @@ import { useState } from "react";
 
 function App() {
   const [username, setUsername] = useState<string>(localStorage.getItem("name") || "Guest");
+  const [terms, setTerms] = useState<boolean>(false);
 
   const getUrl = (fileName: string): string => new URL(`/public/${fileName}`, import.meta.url).href;
 
   return (
     <>
-      <div className="flex flex-col mx-auto">
+      <div className="flex flex-col mx-auto pb-20">
         <nav className="sticky top-0 z-40 w-full h-[80px] px-7 flex flex-row gap-10 items-center border bg-white">
           <h2 className="text-4xl font-bold">haBit</h2>
 
@@ -23,8 +24,8 @@ function App() {
           </div>
         </nav>
 
-        <WelcomeModal setUsername={setUsername} />
-        <HomePage username={username} getUrl={getUrl} />
+        <WelcomeModal setUsername={setUsername} setTerms={setTerms} />
+        <HomePage username={username} getUrl={getUrl} terms={terms} />
       </div>
     </>
   );

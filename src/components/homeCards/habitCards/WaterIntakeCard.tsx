@@ -38,8 +38,8 @@ const WaterIntakeCard = ({ habits, setHabits, editMode, habit, getUrl }: Props) 
             className="absolute z-10 top-5 left-5 text-white hover:bg-blue-600 font-medium text-sm p-3 py-3 bg-blue-700"
             type="button"
             onClick={(e) => {
-              // console.log(habit.id, Number((e.target as HTMLButtonElement).id));
               const newState = habits.filter((h: Habits) => Number(h.id) !== Number((e.target as HTMLButtonElement).id));
+              localStorage.setItem("habitData", JSON.stringify(newState));
               setHabits(newState);
             }}
           >
@@ -49,8 +49,8 @@ const WaterIntakeCard = ({ habits, setHabits, editMode, habit, getUrl }: Props) 
               src={getUrl("icons/trash3-fill.svg")}
               alt="remove-icon"
               onClick={(e) => {
-                // console.log(habit.id, Number((e.target as HTMLButtonElement).id));
                 const newState = habits.filter((h: Habits) => Number(h.id) !== Number((e.target as HTMLButtonElement).id));
+                localStorage.setItem("habitData", JSON.stringify(newState));
                 setHabits(newState);
               }}
             />

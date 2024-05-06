@@ -159,6 +159,7 @@ const NewHabitModal = ({ habits, setHabits, getUrl }: Props) => {
                 <button
                   className="text-white hover:bg-slate-700 font-medium text-sm px-5 py-3 h-full bg-slate-900"
                   onClick={() => {
+                    localStorage.setItem("habitData", JSON.stringify([...habits, newHabit]));
                     setHabits([...habits, newHabit]);
                     setModalToggle(false);
                   }}

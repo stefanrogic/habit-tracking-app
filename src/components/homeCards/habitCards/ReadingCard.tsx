@@ -23,7 +23,7 @@ type Props = {
 const ReadingCard = ({ habits, setHabits, editMode, habit, getUrl }: Props) => {
   const [progress, setProgress] = useState<number[]>(habit.progress);
 
-  const renderProgress = () => progress.reduce((partialSum, a) => partialSum + a, 0) + " / " + habit.goal + "Pages";
+  const renderProgress = () => progress.reduce((partialSum, a) => partialSum + a, 0) + " / " + habit.goal + " Pages";
 
   return (
     <div className="relative bg-yellow-500 aspect-[1/1] flex flex-col justify-start items-end">
@@ -45,8 +45,8 @@ const ReadingCard = ({ habits, setHabits, editMode, habit, getUrl }: Props) => {
             className="absolute z-10 top-5 left-5 text-white hover:bg-yellow-600 font-medium text-sm p-3 py-3 bg-yellow-700"
             type="button"
             onClick={(e) => {
-              console.log(habit.id, Number((e.target as HTMLButtonElement).id));
               const newState = habits.filter((h: Habits) => Number(h.id) !== Number((e.target as HTMLButtonElement).id));
+              localStorage.setItem("habitData", JSON.stringify(newState));
               setHabits(newState);
             }}
           >
@@ -56,8 +56,8 @@ const ReadingCard = ({ habits, setHabits, editMode, habit, getUrl }: Props) => {
               src={getUrl("icons/trash3-fill.svg")}
               alt="remove-icon"
               onClick={(e) => {
-                console.log(habit.id, Number((e.target as HTMLButtonElement).id));
                 const newState = habits.filter((h: Habits) => Number(h.id) !== Number((e.target as HTMLButtonElement).id));
+                localStorage.setItem("habitData", JSON.stringify(newState));
                 setHabits(newState);
               }}
             />
