@@ -17,9 +17,9 @@ function App() {
 
           <div className="flex flex-row gap-5 font-semibold text-xl">
             {["Habit Tracker", "Todo List"].map((l, i) => (
-              <span key={i} className="hover:underline cursor-pointer">
+              <a href={"#" + l.toLowerCase().split(" ").join("-")} key={i} className="hover:underline cursor-pointer">
                 {l}
-              </span>
+              </a>
             ))}
           </div>
         </nav>

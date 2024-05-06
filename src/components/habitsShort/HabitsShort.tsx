@@ -39,12 +39,12 @@ const HabitsShort = ({ getUrl, terms }: Props) => {
   }, [terms]);
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className=" max-w-2/3 w-full flex flex-col gap-10 scroll-m-24" id="habit-tracker">
       <div className="flex flex-col gap-5">
-        <div className="flex flex-row justify-end gap-5">
+        <div className="flex flex-row justify-start gap-5">
           <NewHabitModal habits={habits} setHabits={setHabits} getUrl={getUrl} />
 
-          <button className=" text-white hover:bg-slate-700 font-medium text-sm p-3 py-3 h-full bg-slate-900" type="button" onClick={() => setEditMode(!editMode)}>
+          <button className="text-white hover:bg-slate-700 font-medium text-sm p-3 py-3 h-full bg-slate-900" type="button" onClick={() => setEditMode(!editMode)}>
             <img className="h-5 w-5" src={getUrl("icons/gear-fill.svg")} alt="edit-icon" />
           </button>
         </div>

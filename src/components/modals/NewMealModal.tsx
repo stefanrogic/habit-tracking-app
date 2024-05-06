@@ -57,6 +57,7 @@ const NewMealModal = ({ meals, setMeals, getUrl }: Props) => {
                 <button
                   className="text-white hover:bg-blue-800 font-medium text-sm px-5 py-3 h-full bg-blue-600"
                   onClick={() => {
+                    localStorage.setItem("habitData", JSON.stringify([...meals, Number(meal)]));
                     setMeals([...meals, Number(meal)]);
                     setModalToggle(false);
                   }}
