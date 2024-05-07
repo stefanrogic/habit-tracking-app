@@ -7,10 +7,10 @@ type Props = {
   terms: boolean;
 };
 
-const HomePage = ({ username, getUrl, terms }: Props) => {
+const HomePage = ({ getUrl, terms }: Props) => {
   return (
-    <div className="flex flex-col gap-10 w-full mx-auto pt-10">
-      <h1 className="text-5xl font-bold px-10">Hello {username}, these are your habits and tasks for today</h1>
+    <div className="flex flex-col gap-10 w-full mx-auto pt-10 max-w-[1600px]">
+      {/* <h1 className="text-5xl font-bold px-10">Hello {username}, these are your habits and tasks for today</h1> */}
 
       <div className="flex flex-row gap-20 w-[100%] px-10">
         <HabitsShort getUrl={getUrl} terms={terms} />

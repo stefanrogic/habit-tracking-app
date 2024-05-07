@@ -21,6 +21,7 @@ const NewHabitModal = ({ habits, setHabits, getUrl }: Props) => {
   const [modalToggle, setModalToggle] = useState<boolean>(false);
   const [selected, setSelected] = useState<number>(0);
   const [newHabit, setNewHabit] = useState<Habits | undefined>();
+  const [habitName, setHabitName] = useState<string>("");
 
   return (
     <>
@@ -125,9 +126,10 @@ const NewHabitModal = ({ habits, setHabits, getUrl }: Props) => {
                           type="text"
                           placeholder="Enter counter name..."
                           onChange={(e) => {
+                            setHabitName(e.target.value);
                             setNewHabit({
                               id: habits.length,
-                              name: newHabit?.name ? newHabit?.name : e.target.value,
+                              name: habitName,
                               type: "count-up",
                               startDate: newHabit?.startDate ? newHabit?.startDate : new Date(),
                               goal: newHabit?.goal ? newHabit?.goal : false,
@@ -142,9 +144,7 @@ const NewHabitModal = ({ habits, setHabits, getUrl }: Props) => {
                           className="w-full p-3 bg-white border"
                           type="date"
                           onChange={(e) => {
-                            console.log(e.target.value);
-
-                            setNewHabit({ id: habits.length, name: newHabit?.name ? newHabit?.name : "", type: "count-up", startDate: newHabit?.startDate ? newHabit?.startDate : new Date(), goal: new Date(e.target.value) });
+                            setNewHabit({ id: habits.length, name: habitName, type: "count-up", startDate: newHabit?.startDate ? newHabit?.startDate : new Date(), goal: new Date(e.target.value) });
                           }}
                         />
                       </div>

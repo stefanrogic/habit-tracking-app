@@ -28,8 +28,8 @@ const MealCard = ({ habits, setHabits, editMode, habit, getUrl }: Props) => {
   return (
     <div className="relative bg-green-400 aspect-[1/1] flex flex-col justify-start items-end">
       {habit.goal && <span className="absolute z-20 top-5 right-5 text-2xl text-white font-bold">{Math.round(Math.abs((meals.reduce((partialSum, a) => partialSum + a, 0) / habit.goal) * 100))}%</span>}
-      <span className="absolute z-20 left-5 bottom-5 text-3xl text-white font-bold">{renderProgress()}</span>
-      <span className="absolute z-20 left-5 bottom-14 text-3xl text-white font-bold">{habit.name}</span>
+      <span className="absolute z-20 left-5 bottom-5 text-xl text-white font-bold">{renderProgress()}</span>
+      <span className="absolute z-20 left-5  bottom-12 text-3xl text-white font-bold">{habit.name}</span>
       {habit.goal && (
         <div
           className="absolute z-10 bottom-0 w-full flex flex-col justify-start items-end bg-green-500 transition ease-in-out duration-200"
@@ -40,7 +40,7 @@ const MealCard = ({ habits, setHabits, editMode, habit, getUrl }: Props) => {
         <img className="h-6 w-6" src={getUrl("icons/plus.svg")} alt="add-icon" />
       </button> */}
       {!editMode ? (
-        <NewMealModal meals={meals} setMeals={setMeals} getUrl={getUrl} />
+        <NewMealModal habits={habits} habit={habit} meals={meals} setMeals={setMeals} getUrl={getUrl} />
       ) : (
         <>
           <button

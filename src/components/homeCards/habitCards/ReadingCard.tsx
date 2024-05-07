@@ -28,8 +28,8 @@ const ReadingCard = ({ habits, setHabits, editMode, habit, getUrl }: Props) => {
   return (
     <div className="relative bg-yellow-500 aspect-[1/1] flex flex-col justify-start items-end">
       <span className="absolute z-20 top-5 right-5 text-2xl text-white font-bold">{Math.round((progress.reduce((partialSum, a) => partialSum + a, 0) / habit.goal) * 100)}%</span>
-      <span className="absolute z-20 left-5 bottom-5 text-3xl text-white font-bold">{renderProgress()}</span>
-      <span className="absolute z-20 left-5 bottom-14 text-3xl text-white font-bold">{habit.name}</span>
+      <span className="absolute z-20 left-5 bottom-5 text-xl text-white font-bold">{renderProgress()}</span>
+      <span className="absolute z-20 left-5 bottom-12 text-3xl text-white font-bold">{habit.name}</span>
 
       <div className="absolute z-10 bottom-0 w-full flex flex-col justify-start items-end bg-yellow-800" style={{ height: (progress.reduce((partialSum, a) => partialSum + a, 0) / habit.goal) * 100 + "%" }}></div>
 
@@ -37,7 +37,7 @@ const ReadingCard = ({ habits, setHabits, editMode, habit, getUrl }: Props) => {
         <img className="h-6 w-6" src={getUrl("icons/plus.svg")} alt="add-icon" />
       </button> */}
       {!editMode ? (
-        <NewPagesModal progress={progress} setProgress={setProgress} getUrl={getUrl} />
+        <NewPagesModal habits={habits} habit={habit} progress={progress} setProgress={setProgress} getUrl={getUrl} />
       ) : (
         <>
           <button

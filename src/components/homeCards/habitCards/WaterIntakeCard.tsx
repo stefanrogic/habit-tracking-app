@@ -22,11 +22,11 @@ const WaterIntakeCard = ({ habits, setHabits, editMode, habit, getUrl }: Props) 
     <div className="relative bg-blue-200 aspect-[1/1] flex flex-col justify-start items-end">
       <span className="absolute z-20 top-5 right-5 text-2xl text-white font-bold">{Math.round((progress / habit.goal) * 100)}%</span>
       <span className="absolute z-20 left-5 bottom-5 text-3xl text-white font-bold">{habit.name}</span>
-      <div className="absolute z-20 right-5 bottom-6 flex flex-col-reverse flex-wrap-reverse gap-2 h-[73%]">
+      <div className="absolute z-20 right-5 bottom-6 flex flex-col-reverse flex-wrap-reverse gap-2 h-[73%] w-10">
         {Array(habit.goal)
           .fill(0)
           .map((_, i: number) => (
-            <WaterIndicator key={i} select={i + 1 <= progress ? true : false} progress={progress} setProgress={setProgress} />
+            <WaterIndicator key={i} select={i + 1 <= progress ? true : false} habits={habits} habit={habit} progress={progress} setProgress={setProgress} />
           ))}
       </div>
       <div className="absolute z-10 bottom-0 w-full flex flex-col justify-start items-end bg-blue-500" style={{ height: (progress / habit.goal) * 100 + "%" }}></div>

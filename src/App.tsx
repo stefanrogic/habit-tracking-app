@@ -15,12 +15,10 @@ function App() {
         <nav className="sticky top-0 z-40 w-full h-[80px] px-7 flex flex-row gap-10 items-center border bg-white">
           <h2 className="text-4xl font-bold">haBit</h2>
 
-          <div className="flex flex-row gap-5 font-semibold text-xl">
-            {["Habit Tracker", "Todo List"].map((l, i) => (
-              <a href={"#" + l.toLowerCase().split(" ").join("-")} key={i} className="hover:underline cursor-pointer">
-                {l}
-              </a>
-            ))}
+          <div className="flex flex-row items-center gap-3 ms-auto cursor-pointer">
+            <span className="text-xl font-bold">{username}</span>
+            <div className="h-8 w-8 bg-slate-400 rounded-full"></div>
+            <img className="mt-1" src={getUrl("icons/caret-down-fill.svg")} alt="arrow-down" />
           </div>
         </nav>
 

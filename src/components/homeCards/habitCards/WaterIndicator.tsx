@@ -6,7 +6,7 @@ type Props = {
   setProgress: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const WaterIndicator = ({ select, progress, setProgress }: Props) => {
+const WaterIndicator = ({ select, habits, habit, progress, setProgress }: Props) => {
   const [fill, setFill] = useState<boolean>(select ? true : false);
 
   return (
@@ -17,8 +17,20 @@ const WaterIndicator = ({ select, progress, setProgress }: Props) => {
         setFill(!fill);
 
         if (!fill) {
+          const newState = habits.map((h) => {
+            if (h.id === habit.id) {
+              return { ...h, progress: progress + 1 };
+            } else return h;
+          });
+          localStorage.setItem("habitData", JSON.stringify(newState));
           setProgress(progress + 1);
         } else {
+          const newState = habits.map((h) => {
+            if (h.id === habit.id) {
+              return { ...h, progress: progress - 1 };
+            } else return h;
+          });
+          localStorage.setItem("habitData", JSON.stringify(newState));
           setProgress(progress - 1);
         }
       }}

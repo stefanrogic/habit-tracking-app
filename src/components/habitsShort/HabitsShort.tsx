@@ -27,7 +27,7 @@ const HabitsShort = ({ getUrl, terms }: Props) => {
     JSON.parse(localStorage.getItem("habitData")) || [
       { id: 0, type: "water-intake", name: "Water Intake", goal: 10, progress: 3 },
       { id: 1, type: "reading", name: "Read a Book", start: 0, progress: [147], goal: 365 },
-      { id: 2, type: "count-up", name: "Alcohol Free", startDate: new Date("01-May-24"), goal: new Date("14-May-24") },
+      // { id: 2, type: "count-up", name: "Project Deadline", startDate: new Date("09-May-24"), goal: new Date("24-May-24") },
       { id: 3, type: "meal", name: "Calories", start: 0, progress: [1200, 820, 600], goal: 2800 },
     ]
   );
@@ -48,6 +48,8 @@ const HabitsShort = ({ getUrl, terms }: Props) => {
             <img className="h-5 w-5" src={getUrl("icons/gear-fill.svg")} alt="edit-icon" />
           </button>
         </div>
+
+        {habits.length === 0 && <p>Your habit list is empty</p>}
 
         <div className="grid grid-cols-3 grid-flow-row gap-5">
           {habits.map((habit, i) => {

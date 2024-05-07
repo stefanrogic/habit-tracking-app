@@ -6,7 +6,7 @@ type Props = {
   getUrl: (value: string) => string;
 };
 
-const NewMealModal = ({ meals, setMeals, getUrl }: Props) => {
+const NewMealModal = ({ habits, habit, meals, setMeals, getUrl }: Props) => {
   const [modalToggle, setModalToggle] = useState<boolean>(false);
   const [meal, setMeal] = useState<number>(0);
 
@@ -55,9 +55,15 @@ const NewMealModal = ({ meals, setMeals, getUrl }: Props) => {
 
               <div className="flex items-center gap-4 p-5 pt-14">
                 <button
-                  className="text-white hover:bg-blue-800 font-medium text-sm px-5 py-3 h-full bg-blue-600"
+                  className="text-white hover:bg-slate-700 font-medium text-sm px-5 py-3 h-full bg-slate-900"
                   onClick={() => {
-                    localStorage.setItem("habitData", JSON.stringify([...meals, Number(meal)]));
+                    const newState = habits.map((h) => {
+                      if (h.id === habit.id) {
+                        return { ...h, progress: [...meals, Number(meal)] };
+                      } else return h;
+                    });
+                    localStorage.setItem("habitData", JSON.stringify(newState));
+
                     setMeals([...meals, Number(meal)]);
                     setModalToggle(false);
                   }}

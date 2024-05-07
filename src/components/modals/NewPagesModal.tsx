@@ -6,7 +6,7 @@ type Props = {
   getUrl: (value: string) => string;
 };
 
-const NewPagesModal = ({ progress, setProgress, getUrl }: Props) => {
+const NewPagesModal = ({ habits, habit, progress, setProgress, getUrl }: Props) => {
   const [modalToggle, setModalToggle] = useState<boolean>(false);
   const [pages, setPages] = useState<number>(0);
 
@@ -57,6 +57,13 @@ const NewPagesModal = ({ progress, setProgress, getUrl }: Props) => {
                 <button
                   className="text-white hover:bg-blue-800 font-medium text-sm px-5 py-3 h-full bg-blue-600"
                   onClick={() => {
+                    const newState = habits.map((h) => {
+                      if (h.id === habit.id) {
+                        return { ...h, progress: [...progress, Number(pages)] };
+                      } else return h;
+                    });
+                    localStorage.setItem("habitData", JSON.stringify(newState));
+
                     setProgress([...progress, Number(pages)]);
                     setModalToggle(false);
                   }}
