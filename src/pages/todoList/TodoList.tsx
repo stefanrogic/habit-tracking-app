@@ -1,16 +1,17 @@
 import { MouseEvent, KeyboardEvent, useState } from "react";
+import TodoItem from "../../components/todoItem/TodoItem";
 
 type TodoItems = {
   text: string;
   done: boolean;
 };
 
-const TodoList = () => {
+const TodoList = ({ getUrl }) => {
   const [newTodo, setNewTodo] = useState<string>("");
-  const [todo, setTodo] = useState<TodoItems[]>([]);
+  const [todo, setTodo] = useState<TodoItems[]>(JSON.parse(localStorage.getItem("todoList")) || []);
 
   const handleAddTodo = (e: KeyboardEvent | MouseEvent, key: boolean = false): void => {
-    newTodo.length > 0 && setTodo([...todo, { text: newTodo, done: false }]);
+    newTodo.length > 0 && localStorage.setItem("todoList", JSON.stringify([...todo, { text: newTodo, done: false }])) && setTodo([...todo, { text: newTodo, done: false }]);
     if (key) {
       (e.target as HTMLButtonElement).value = "";
       setNewTodo("");
@@ -21,6 +22,7 @@ const TodoList = () => {
   };
 
   const handleRemoveTodo = (i: number): void => {
+    localStorage.setItem("todoList", JSON.stringify(todo.filter((_, todoI) => todoI !== i)));
     setTodo(todo.filter((_, todoI) => todoI !== i));
   };
 
@@ -31,6 +33,7 @@ const TodoList = () => {
       } else return t;
     });
 
+    localStorage.setItem("todoList", JSON.stringify(newState));
     setTodo(newState);
   };
 
@@ -59,19 +62,7 @@ const TodoList = () => {
       <div className="flex flex-col gap-2">
         {todo.length === 0 && <p>Your TODO list is empty</p>}
         {todo.map((t, i: number) => (
-          <div className={`flex flex-row justify-between items-center px-5 h-20 border border-gray-200 shadow dark:bg-slate-800 dark:border-gray-700 ${t?.done ? "bg-slate-600" : "bg-slate-800"}`} key={i}>
-            <div className="w-full h-full flex items-center cursor-pointer" onClick={() => handleMarkTodo(i)}>
-              <p className={`text-xl font-bold ${t?.done && "line-through"}`}>{t.text}</p>
-            </div>
-            <div className="flex flex-row items-center gap-5">
-              <button className="px-3 py-1 bg-gray-500 font-bold" onClick={() => handleRemoveTodo(i)}>
-                REMOVE
-              </button>
-              {/* <button className="px-3 py-1 bg-gray-500 font-bold" onClick={() => handleMarkTodo(i)}>
-            {t?.done ? "MARK AS UNDONE" : "MARK AS DONE"}
-          </button> */}
-            </div>
-          </div>
+          <TodoItem key={i} data={t} handleMarkTodo={handleMarkTodo} handleRemoveTodo={handleRemoveTodo} i={i} getUrl={getUrl} />
         ))}
       </div>
     </div>

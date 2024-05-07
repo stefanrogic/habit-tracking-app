@@ -14,7 +14,7 @@ const HomePage = ({ getUrl, terms }: Props) => {
 
       <div className="flex flex-row gap-20 w-[100%] px-10">
         <HabitsShort getUrl={getUrl} terms={terms} />
-        <TodoList />
+        <TodoList getUrl={getUrl} />
       </div>
     </div>
   );
