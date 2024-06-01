@@ -5,7 +5,7 @@ type TodoItems = {
   text: string;
   done: boolean;
 };
-
+// ! FIX TODO LIST NOT UPDATING ON ITS OWN
 const TodoList = ({ getUrl }) => {
   const [newTodo, setNewTodo] = useState<string>("");
   const [todo, setTodo] = useState<TodoItems[]>(JSON.parse(localStorage.getItem("todoList")) || []);
